@@ -1,4 +1,5 @@
-const items = require("../data/items");
+const { items } = require("../data/items");
+
 const locks = new Set();
 
 function biddingSocket(io) {
@@ -12,9 +13,16 @@ function biddingSocket(io) {
       }
 
       locks.add(itemId);
+
       const item = items.find(i => i.id === itemId);
 
-      if (!item || Date.now() > item.auctionEndTime) {
+      if (!item) {
+        socket.emit("BID_ERROR", "Item not found");
+        locks.delete(itemId);
+        return;
+      }
+
+      if (Date.now() > item.auctionEndTime) {
         socket.emit("BID_ERROR", "Auction ended");
         locks.delete(itemId);
         return;
@@ -35,5 +43,3 @@ function biddingSocket(io) {
 }
 
 module.exports = biddingSocket;
-
-
