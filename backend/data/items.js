@@ -4,7 +4,7 @@ const items = [
     title: "MacBook Pro",
     startingPrice: 500,
     currentBid: 500,
-    auctionEndTime: Date.now() + 1 * 60 * 1000,
+    auctionEndTime: 1717603200000, 
     highestBidder: null
   },
   {
@@ -12,7 +12,7 @@ const items = [
     title: "iPhone 15",
     startingPrice: 300,
     currentBid: 300,
-    auctionEndTime: Date.now() + 4 * 60 * 1000,
+    auctionEndTime: 1717606800000,
     highestBidder: null
   },
   {
@@ -20,7 +20,7 @@ const items = [
     title: "Apple Microphone",
     startingPrice: 400,
     currentBid: 400,
-    auctionEndTime: Date.now() + 1 * 60 * 1000,
+    auctionEndTime: 1717610400000,
     highestBidder: null
   },
   {
@@ -28,7 +28,7 @@ const items = [
     title: "Apple Watch",
     startingPrice: 200,
     currentBid: 200,
-    auctionEndTime: Date.now() + 2 * 60 * 1000,
+    auctionEndTime: 1717614000000,
     highestBidder: null
   },
   {
@@ -36,7 +36,7 @@ const items = [
     title: "Samsung Galaxy S24",
     startingPrice: 350,
     currentBid: 350,
-    auctionEndTime: Date.now() + 5 * 60 * 1000,
+    auctionEndTime: 1717617600000,
     highestBidder: null
   },
   {
@@ -44,7 +44,7 @@ const items = [
     title: "Sony Headphones",
     startingPrice: 250,
     currentBid: 250,
-    auctionEndTime: Date.now() + 4 * 60 * 1000,
+    auctionEndTime: 1717621200000,
     highestBidder: null
   },
   {
@@ -52,7 +52,7 @@ const items = [
     title: "iPad Pro",
     startingPrice: 450,
     currentBid: 450,
-    auctionEndTime: Date.now() + 6 * 60 * 1000,
+    auctionEndTime: 1717624800000,
     highestBidder: null
   },
   {
@@ -60,7 +60,7 @@ const items = [
     title: "Dell Laptop",
     startingPrice: 420,
     currentBid: 420,
-    auctionEndTime: Date.now() + 5 * 60 * 1000,
+    auctionEndTime: 1717628400000,
     highestBidder: null
   },
   {
@@ -68,7 +68,7 @@ const items = [
     title: "Apple Earbuds",
     startingPrice: 280,
     currentBid: 280,
-    auctionEndTime: Date.now() + 4 * 60 * 1000,
+    auctionEndTime: 1717632000000,
     highestBidder: null
   },
   {
@@ -76,7 +76,7 @@ const items = [
     title: "Lenovo Laptop",
     startingPrice: 150,
     currentBid: 150,
-    auctionEndTime: Date.now() + 3 * 60 * 1000,
+    auctionEndTime: 1717635600000,
     highestBidder: null
   }
 ];
