@@ -1,6 +1,6 @@
 ##How the Live Bidding Works
 
-1. Open the Vercel deployment link in your browser.
+1. Open the Vercel deployment link in two browsers(chrome and edge/incognito).(to see updated results in real time)
    Live bidding platform Application link: https://live-bidding-platform-p95m.vercel.app/
 3. The auction starts automatically when the page loads.
 4. Each product shows the current bid, remaining time, and bid status.
