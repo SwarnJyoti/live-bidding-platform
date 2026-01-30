@@ -1,35 +1,26 @@
-const items = require("../data/items");
+const { getItems } = require("../data/items");
 const locks = new Set();
 
 function biddingSocket(io) {
   io.on("connection", (socket) => {
-    console.log("User connected:", socket.id);
+    console.log("User connected");
 
     socket.on("BID_PLACED", ({ itemId, userId }) => {
-      if (locks.has(itemId)) {
-        socket.emit("BID_ERROR", "Outbid in progress");
-        return;
-      }
-
-      locks.add(itemId);
-
+      const items = getItems();
       const item = items.find(i => i.id === itemId);
 
       if (!item) {
-        socket.emit("BID_ERROR", "Item not found");
-        locks.delete(itemId);
+        socket.emit("BID_ERROR", "Outbid");
         return;
       }
 
-      if (Date.now() >= item.auctionEndTime) {
+      if (Date.now() > item.auctionEndTime) {
         socket.emit("BID_ERROR", "Auction ended");
-        locks.delete(itemId);
         return;
       }
 
       if (item.lastBidder === userId) {
-        socket.emit("BID_ERROR", "You cannot place consecutive bids");
-        locks.delete(itemId);
+        socket.emit("BID_ERROR", "You cannot bid twice in a row");
         return;
       }
 
@@ -38,12 +29,6 @@ function biddingSocket(io) {
       item.highestBidder = userId;
 
       io.emit("UPDATE_BID", item);
-
-      locks.delete(itemId);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
     });
   });
 }

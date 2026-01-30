@@ -3,32 +3,29 @@ const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
 
-const items = require("./data/items");
+const { getItems } = require("./data/items");
 const biddingSocket = require("./socket/bidding");
 
 const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: { origin: "*" }
-});
+const io = new Server(server, { cors: { origin: "*" } });
 
 app.get("/items", (req, res) => {
-  const response = items.map(item => ({
-    ...item,
-    status: Date.now() >= item.auctionEndTime ? "ENDED" : "LIVE"
-  }));
+  const items = getItems();
 
   res.json({
     serverTime: Date.now(),
-    items: response
+    items: items.map(item => ({
+      ...item,
+      status: Date.now() > item.auctionEndTime ? "ENDED" : "LIVE"
+    }))
   });
 });
 
 biddingSocket(io);
 
-const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+server.listen(process.env.PORT || 4000, () =>
+  console.log("Server running")
+);
