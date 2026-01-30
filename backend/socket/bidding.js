@@ -1,5 +1,4 @@
-const { items } = require("../data/items");
-
+const items = require("../data/items");
 const locks = new Set();
 
 function biddingSocket(io) {
@@ -8,7 +7,7 @@ function biddingSocket(io) {
 
     socket.on("BID_PLACED", ({ itemId, userId }) => {
       if (locks.has(itemId)) {
-        socket.emit("BID_ERROR", "Outbid");
+        socket.emit("BID_ERROR", "Outbid in progress");
         return;
       }
 
@@ -22,13 +21,20 @@ function biddingSocket(io) {
         return;
       }
 
-      if (Date.now() > item.auctionEndTime) {
+      if (Date.now() >= item.auctionEndTime) {
         socket.emit("BID_ERROR", "Auction ended");
         locks.delete(itemId);
         return;
       }
 
+      if (item.lastBidder === userId) {
+        socket.emit("BID_ERROR", "You cannot place consecutive bids");
+        locks.delete(itemId);
+        return;
+      }
+
       item.currentBid += 10;
+      item.lastBidder = userId;
       item.highestBidder = userId;
 
       io.emit("UPDATE_BID", item);
